@@ -32,9 +32,9 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   static char s_time_buffer[16];
 //   static char s_date_buffer[16];
   if (clock_is_24h_style()) {
-    strftime(s_time_buffer, sizeof(s_time_buffer), "00%H%M", tick_time);
+    strftime(s_time_buffer, sizeof(s_time_buffer), "%k:%M", tick_time);
   } else {
-    strftime(s_time_buffer, sizeof(s_time_buffer), "00%I%M", tick_time);
+    strftime(s_time_buffer, sizeof(s_time_buffer), "%l:%M", tick_time);
   }
   //TODO: support alternate date formats
 //   strftime(s_date_buffer, sizeof(s_date_buffer), "%m.%d", tick_time);
@@ -148,14 +148,14 @@ static void main_window_load(Window *window) {
   //layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
 
   // Load and set custom fonts
-  s_stencil = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_BEON_22));
+  s_stencil = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_KARLA_36));
   s_silkscreen = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SILKSCREEN_8));
   text_layer_set_font(s_time_layer, s_stencil);
   text_layer_set_font(s_shadow_layer_l, s_stencil);
   text_layer_set_font(s_shadow_layer_d, s_stencil);
   text_layer_set_font(s_shadow_layer_u, s_stencil);
   text_layer_set_font(s_shadow_layer_r, s_stencil);
-//   text_layer_set_text_color(s_time_layer, GColorRajah);
+  text_layer_set_text_color(s_time_layer, GColorWhite);
 //   text_layer_set_text_color(s_shadow_layer_l, GColorRed);
 //   text_layer_set_text_color(s_shadow_layer_d, GColorRed);
 //   text_layer_set_text_color(s_shadow_layer_u, GColorRed);

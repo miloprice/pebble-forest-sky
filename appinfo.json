@@ -9,6 +9,12 @@
     "resources": {
         "media": [
             {
+                "characterRegex": "[0-9:.a-z]",
+                "file": "fonts/Karla-Regular.ttf",
+                "name": "FONT_KARLA_36",
+                "type": "font"
+            },
+            {
                 "file": "images/cavestory_bg.png",
                 "name": "IMAGE_CAVESTORY",
                 "targetPlatforms": [
