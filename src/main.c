@@ -82,7 +82,7 @@ static void main_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect window_bounds = layer_get_bounds(window_layer);
 
-//   s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_XWING_BG);
+  s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_CAVESTORY);
 
   s_bitmap_layer = bitmap_layer_create(window_bounds);
   bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap);

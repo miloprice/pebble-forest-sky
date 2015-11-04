@@ -9,6 +9,15 @@
     "resources": {
         "media": [
             {
+                "file": "images/cavestory_bg.png",
+                "name": "IMAGE_CAVESTORY",
+                "targetPlatforms": [
+                    "aplite",
+                    "basalt"
+                ],
+                "type": "png"
+            },
+            {
                 "characterRegex": "[0-9:.]",
                 "file": "fonts/silkscreen.ttf",
                 "name": "FONT_SILKSCREEN_8",
@@ -24,6 +33,10 @@
     },
     "sdkVersion": "3",
     "shortName": "forest-sky",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
     "uuid": "75c3bc6d-e727-4f19-9610-317a7cac6902",
     "versionLabel": "1.0",
     "watchapp": {
