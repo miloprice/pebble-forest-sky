@@ -13,7 +13,8 @@
                 "name": "IMAGE_CAVESTORY",
                 "targetPlatforms": [
                     "aplite",
-                    "basalt"
+                    "basalt",
+                    "chalk"
                 ],
                 "type": "png"
             },
@@ -35,7 +36,8 @@
     "shortName": "forest-sky",
     "targetPlatforms": [
         "aplite",
-        "basalt"
+        "basalt",
+        "chalk"
     ],
     "uuid": "75c3bc6d-e727-4f19-9610-317a7cac6902",
     "versionLabel": "1.0",
