@@ -1,0 +1,32 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "miloprice",
+    "longName": "forest-sky",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "characterRegex": "[0-9:.]",
+                "file": "fonts/silkscreen.ttf",
+                "name": "FONT_SILKSCREEN_8",
+                "type": "font"
+            },
+            {
+                "characterRegex": "[0-9:.]",
+                "file": "fonts/beon-webfont.ttf",
+                "name": "FONT_BEON_22",
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "forest-sky",
+    "uuid": "75c3bc6d-e727-4f19-9610-317a7cac6902",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
