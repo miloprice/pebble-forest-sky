@@ -1,7 +1,8 @@
 #include <pebble.h>
 
 static Window *s_main_window;
-static GBitmap *s_bitmap;
+static GBitmap *s_bitmap_day;
+static GBitmap *s_bitmap_night;
 static GBitmap *s_targeting;
 static GBitmap *s_batt_000;
 static GBitmap *s_batt_010;
@@ -35,6 +36,16 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     strftime(s_time_buffer, sizeof(s_time_buffer), "%k:%M", tick_time);
   } else {
     strftime(s_time_buffer, sizeof(s_time_buffer), "%l:%M", tick_time);
+  }
+  
+  int hours = tick_time->tm_hour;
+// 	int mins = tick_time->tm_min;
+// 	int secs = tick_time->tm_sec;
+  
+  if (hours >= 6 && hours < 20) {
+    bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap_day);
+  } else {
+    bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap_night);
   }
   //TODO: support alternate date formats
 //   strftime(s_date_buffer, sizeof(s_date_buffer), "%m.%d", tick_time);
@@ -82,10 +93,11 @@ static void main_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect window_bounds = layer_get_bounds(window_layer);
 
-  s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_CAVESTORY);
+  s_bitmap_day = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_CAVESTORY);
+  s_bitmap_night = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_CAVESTORY_NIGHT);
 
   s_bitmap_layer = bitmap_layer_create(window_bounds);
-  bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap);
+  bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap_day);
   bitmap_layer_set_compositing_mode(s_bitmap_layer, GCompOpSet);
   layer_add_child(window_layer, bitmap_layer_get_layer(s_bitmap_layer));
     
@@ -115,28 +127,28 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, bitmap_layer_get_layer(s_targeting_layer));  
   
 //   Time shadow layers
-  s_shadow_layer_l = text_layer_create(GRect(0, 1, window_bounds.size.w, window_bounds.size.h));
+  s_shadow_layer_l = text_layer_create(GRect(0, 51, window_bounds.size.w, window_bounds.size.h));
   text_layer_set_text_alignment(s_shadow_layer_l, GTextAlignmentCenter);
   text_layer_set_background_color(s_shadow_layer_l, GColorClear);
   layer_add_child(window_layer, text_layer_get_layer(s_shadow_layer_l));
     
-  s_shadow_layer_d = text_layer_create(GRect(1, 2, window_bounds.size.w, window_bounds.size.h));
+  s_shadow_layer_d = text_layer_create(GRect(1, 52, window_bounds.size.w, window_bounds.size.h));
   text_layer_set_text_alignment(s_shadow_layer_d, GTextAlignmentCenter);
   text_layer_set_background_color(s_shadow_layer_d, GColorClear);
   layer_add_child(window_layer, text_layer_get_layer(s_shadow_layer_d));
     
-  s_shadow_layer_u = text_layer_create(GRect(1, 0, window_bounds.size.w, window_bounds.size.h));
+  s_shadow_layer_u = text_layer_create(GRect(1, 50, window_bounds.size.w, window_bounds.size.h));
   text_layer_set_text_alignment(s_shadow_layer_u, GTextAlignmentCenter);
   text_layer_set_background_color(s_shadow_layer_u, GColorClear);
   layer_add_child(window_layer, text_layer_get_layer(s_shadow_layer_u));
     
-  s_shadow_layer_r = text_layer_create(GRect(2, 1, window_bounds.size.w, window_bounds.size.h));
+  s_shadow_layer_r = text_layer_create(GRect(2, 51, window_bounds.size.w, window_bounds.size.h));
   text_layer_set_text_alignment(s_shadow_layer_r, GTextAlignmentCenter);
   text_layer_set_background_color(s_shadow_layer_r, GColorClear);
   layer_add_child(window_layer, text_layer_get_layer(s_shadow_layer_r));
 
   // Time layer
-  s_time_layer = text_layer_create(GRect(1, 1, window_bounds.size.w, window_bounds.size.h));
+  s_time_layer = text_layer_create(GRect(1, 51, window_bounds.size.w, window_bounds.size.h));
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
   text_layer_set_background_color(s_time_layer, GColorClear);
   layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
@@ -148,7 +160,7 @@ static void main_window_load(Window *window) {
   //layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
 
   // Load and set custom fonts
-  s_stencil = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_KARLA_36));
+  s_stencil = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_KARLA_54));
   s_silkscreen = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SILKSCREEN_8));
   text_layer_set_font(s_time_layer, s_stencil);
   text_layer_set_font(s_shadow_layer_l, s_stencil);
@@ -180,7 +192,8 @@ static void main_window_unload(Window *window) {
   text_layer_destroy(s_time_layer);
   
   //text_layer_destroy(s_date_layer);
-  gbitmap_destroy(s_bitmap);
+  gbitmap_destroy(s_bitmap_day);
+  gbitmap_destroy(s_bitmap_night);
   gbitmap_destroy(s_batt_000);
   gbitmap_destroy(s_batt_010);
   gbitmap_destroy(s_batt_020);
@@ -204,7 +217,7 @@ static void init() {
 #ifdef PBL_SDK_2
   window_set_fullscreen(s_main_window, true);
 #endif
-  window_set_background_color(s_main_window, COLOR_FALLBACK(GColorBlue, GColorBlack));
+  window_set_background_color(s_main_window, COLOR_FALLBACK(GColorPictonBlue, GColorBlack));
   window_set_window_handlers(s_main_window, (WindowHandlers) {
     .load = main_window_load,
     .unload = main_window_unload,

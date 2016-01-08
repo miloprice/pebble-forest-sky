@@ -9,9 +9,21 @@
     "resources": {
         "media": [
             {
+                "file": "images/cavestory_bg_night.png",
+                "name": "IMAGE_CAVESTORY_NIGHT",
+                "targetPlatforms": null,
+                "type": "png"
+            },
+            {
+                "file": "images/treeline",
+                "name": "IMAGE_TREELINE",
+                "type": "bitmap"
+            },
+            {
                 "characterRegex": "[0-9:.a-z]",
                 "file": "fonts/Karla-Regular.ttf",
-                "name": "FONT_KARLA_36",
+                "name": "FONT_KARLA_54",
+                "targetPlatforms": null,
                 "type": "font"
             },
             {
@@ -22,7 +34,7 @@
                     "basalt",
                     "chalk"
                 ],
-                "type": "png"
+                "type": "bitmap"
             },
             {
                 "characterRegex": "[0-9:.]",
@@ -45,9 +57,9 @@
         "basalt",
         "chalk"
     ],
-    "uuid": "75c3bc6d-e727-4f19-9610-317a7cac6902",
+    "uuid": "95b4183f-3348-449b-b357-f71e3aacfc06",
     "versionLabel": "1.0",
     "watchapp": {
-        "watchface": false
+        "watchface": true
     }
 }
